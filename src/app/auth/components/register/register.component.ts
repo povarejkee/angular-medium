@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+
+import { FacadeService } from '../../facade.service';
 
 @Component({
   selector: 'app-register',
@@ -9,15 +12,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
+  isSubmitting: Observable<boolean>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private facade: FacadeService) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.initializeState();
   }
 
   onSubmit(): void {
-    console.log('Form works!', this.form.value);
+    this.facade.register({ user: this.form.value }); // todo где лучше сделать эту трансформацию ???
   }
 
   private initializeForm(): void {
@@ -26,5 +31,9 @@ export class RegisterComponent implements OnInit {
       email: '',
       password: '',
     });
+  }
+
+  private initializeState(): void {
+    this.isSubmitting = this.facade.getIsSubmitting();
   }
 }
