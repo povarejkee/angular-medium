@@ -1,4 +1,4 @@
-import { ICurrentUser } from './currentUser.interface';
+import { ICurrentUser } from './current-user.interface';
 
 export interface IRegisterResponse {
   user: ICurrentUser;

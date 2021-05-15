@@ -4,15 +4,19 @@ import { Observable } from 'rxjs';
 
 import { FacadeService } from '../../facade.service';
 
+import { IRegisterRequest } from '../../types/register-request.interface';
+import { IBackendErrors } from '../../types/backend-errors';
+
 @Component({
-  selector: 'app-register',
+  selector: 'am-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
-  isSubmitting: Observable<boolean>;
+  isSubmitting$: Observable<boolean>;
+  backendErrors$: Observable<IBackendErrors | null>;
 
   constructor(private fb: FormBuilder, private facade: FacadeService) {}
 
@@ -22,7 +26,9 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.facade.register({ user: this.form.value }); // todo где лучше сделать эту трансформацию ???
+    const data: IRegisterRequest = { user: this.form.value };
+
+    this.facade.register(data);
   }
 
   private initializeForm(): void {
@@ -34,6 +40,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private initializeState(): void {
-    this.isSubmitting = this.facade.getIsSubmitting();
+    this.isSubmitting$ = this.facade.getIsSubmitting();
+    this.backendErrors$ = this.facade.getBackendErrors();
   }
 }

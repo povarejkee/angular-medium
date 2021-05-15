@@ -10,6 +10,7 @@ import { StateService } from './services/state.service';
 import { CoreService } from './services/core.service';
 
 import { RegisterComponent } from './components/register/register.component';
+import { BackendErrorsModule } from '../shared/modules/backend-errors/backend-errors.module';
 
 const routes: Routes = [{ path: 'register', component: RegisterComponent }];
 
@@ -20,6 +21,7 @@ const routes: Routes = [{ path: 'register', component: RegisterComponent }];
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     HttpClientModule,
+    BackendErrorsModule,
   ],
   providers: [FacadeService, ApiService, StateService, CoreService],
 })
