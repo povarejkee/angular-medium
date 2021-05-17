@@ -11,6 +11,7 @@ import { CoreService } from './services/core.service';
 
 import { RegisterComponent } from './components/register/register.component';
 import { BackendErrorsModule } from '../shared/modules/backend-errors/backend-errors.module';
+import { LocalStorageService } from '../shared/services/local-storage.service';
 
 const routes: Routes = [{ path: 'register', component: RegisterComponent }];
 
@@ -23,6 +24,12 @@ const routes: Routes = [{ path: 'register', component: RegisterComponent }];
     HttpClientModule,
     BackendErrorsModule,
   ],
-  providers: [FacadeService, ApiService, StateService, CoreService],
+  providers: [
+    FacadeService,
+    ApiService,
+    StateService,
+    CoreService,
+    LocalStorageService,
+  ],
 })
 export class AuthModule {}
