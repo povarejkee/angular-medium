@@ -4,8 +4,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IRegisterRequest } from '../types/register-request.interface';
-import { IRegisterResponse } from '../types/register-response.interface';
+import { ILoginRequest } from '../types/login-request.interface';
+import { IAuthResponse } from '../types/auth-response.interface';
 import { ICurrentUser } from '../types/current-user.interface';
+
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -16,7 +18,19 @@ export class ApiService {
     const URL: string = `${environment.apiUrl}/users`;
 
     return this.http
-      .post<IRegisterResponse>(URL, data)
-      .pipe(map((response: IRegisterResponse) => response.user));
+      .post<IAuthResponse>(URL, data)
+      .pipe(map(this.getUserFromAuthResponse));
+  }
+
+  login(data: ILoginRequest): Observable<ICurrentUser> {
+    const URL: string = `${environment.apiUrl}/users`;
+
+    return this.http
+      .post<IAuthResponse>(URL, data)
+      .pipe(map(this.getUserFromAuthResponse));
+  }
+
+  private getUserFromAuthResponse(response: IAuthResponse): ICurrentUser {
+    return response.user;
   }
 }

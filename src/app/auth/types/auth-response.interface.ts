@@ -1,5 +1,5 @@
 import { ICurrentUser } from './current-user.interface';
 
-export interface IRegisterResponse {
+export interface IAuthResponse {
   user: ICurrentUser;
 }

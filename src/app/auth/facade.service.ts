@@ -8,6 +8,7 @@ import { ApiService } from './services/api.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
 
 import { IRegisterRequest } from './types/register-request.interface';
+import { ILoginRequest } from './types/login-request.interface';
 import { ICurrentUser } from './types/current-user.interface';
 import { IBackendErrors } from './types/backend-errors';
 
@@ -24,6 +25,28 @@ export class FacadeService {
     this.state.setIsSubmitting(true);
 
     this.api.register(data).subscribe({
+      next: (result: ICurrentUser) => {
+        this.state.setIsSubmitting(false);
+        this.state.setCurrentUser(result);
+        this.state.setIsLoggedIn(true);
+        this.state.setBackendErrors(null);
+
+        this.localStorage.set('accessToken', result.token);
+
+        this.router.navigateByUrl('/');
+      },
+
+      error: (errorResponse: HttpErrorResponse) => {
+        this.state.setIsSubmitting(false);
+        this.state.setBackendErrors(errorResponse.error.errors);
+      },
+    });
+  }
+
+  login(data: ILoginRequest): void {
+    this.state.setIsSubmitting(true);
+
+    this.api.login(data).subscribe({
       next: (result: ICurrentUser) => {
         this.state.setIsSubmitting(false);
         this.state.setCurrentUser(result);
