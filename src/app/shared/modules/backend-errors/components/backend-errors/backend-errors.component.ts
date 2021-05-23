@@ -9,14 +9,5 @@ import { IBackendErrors } from '../../../../../auth/types/backend-errors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackendErrorsComponent {
-  // todo сделать это в core.service
-  @Input() set backendErrors(value: IBackendErrors) {
-    this.backendErrorMessages = Object.keys(value).map((key: string) => {
-      const messages: string = value[key].join(', ');
-
-      return `${key} ${messages}`;
-    });
-  }
-
-  backendErrorMessages: string[];
+  @Input() backendErrors: string[];
 }

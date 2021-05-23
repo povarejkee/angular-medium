@@ -6,49 +6,48 @@ import { IBackendErrors } from '../types/backend-errors';
 
 @Injectable()
 export class StateService {
-  private isSubmitting: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
-  );
+  private isSubmitting$: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
 
-  private currentUser: BehaviorSubject<ICurrentUser | null> =
+  private currentUser$: BehaviorSubject<ICurrentUser | null> =
     new BehaviorSubject<ICurrentUser | null>(null);
 
-  private isLoggedIn: BehaviorSubject<boolean | null> = new BehaviorSubject<
+  private isLoggedIn$: BehaviorSubject<boolean | null> = new BehaviorSubject<
     boolean | null
   >(null);
 
-  private backendErrors: BehaviorSubject<IBackendErrors | null> =
-    new BehaviorSubject<IBackendErrors | null>(null);
+  private backendErrors$: BehaviorSubject<string[] | null> =
+    new BehaviorSubject<string[] | null>(null);
 
-  getIsSubmitting(): Observable<boolean> {
-    return this.isSubmitting.asObservable();
+  getIsSubmitting$(): Observable<boolean> {
+    return this.isSubmitting$.asObservable();
   }
 
   setIsSubmitting(flag: boolean): void {
-    this.isSubmitting.next(flag);
+    this.isSubmitting$.next(flag);
   }
 
-  getCurrentUser(): Observable<ICurrentUser | null> {
-    return this.currentUser.asObservable();
+  getCurrentUser$(): Observable<ICurrentUser | null> {
+    return this.currentUser$.asObservable();
   }
 
   setCurrentUser(currentUser: ICurrentUser | null): void {
-    this.currentUser.next(currentUser);
+    this.currentUser$.next(currentUser);
   }
 
-  getIsLoggedIn(): Observable<boolean | null> {
-    return this.isLoggedIn.asObservable();
+  getIsLoggedIn$(): Observable<boolean | null> {
+    return this.isLoggedIn$.asObservable();
   }
 
   setIsLoggedIn(flag: boolean | null): void {
-    this.isLoggedIn.next(flag);
+    this.isLoggedIn$.next(flag);
   }
 
-  getBackendErrors(): Observable<IBackendErrors | null> {
-    return this.backendErrors.asObservable();
+  getBackendErrors$(): Observable<string[] | null> {
+    return this.backendErrors$.asObservable();
   }
 
-  setBackendErrors(errors: IBackendErrors | null): void {
-    this.backendErrors.next(errors);
+  setBackendErrors(errors: string[] | null): void {
+    this.backendErrors$.next(errors);
   }
 }

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { FacadeService } from '../../facade.service';
 
-import { IBackendErrors } from '../../types/backend-errors';
 import { ILoginRequest } from '../../types/login-request.interface';
 
 @Component({
@@ -16,7 +15,7 @@ import { ILoginRequest } from '../../types/login-request.interface';
 export class LoginComponent implements OnInit {
   form: FormGroup;
   isSubmitting$: Observable<boolean>;
-  backendErrors$: Observable<IBackendErrors | null>;
+  backendErrors$: Observable<string[] | null>;
 
   constructor(private fb: FormBuilder, private facade: FacadeService) {}
 
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   private initializeState(): void {
-    this.isSubmitting$ = this.facade.getIsSubmitting();
-    this.backendErrors$ = this.facade.getBackendErrors();
+    this.isSubmitting$ = this.facade.getIsSubmitting$();
+    this.backendErrors$ = this.facade.getBackendErrors$();
   }
 }

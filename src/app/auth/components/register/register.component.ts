@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { FacadeService } from '../../facade.service';
 
 import { IRegisterRequest } from '../../types/register-request.interface';
-import { IBackendErrors } from '../../types/backend-errors';
 
 @Component({
   selector: 'am-register',
@@ -16,7 +15,7 @@ import { IBackendErrors } from '../../types/backend-errors';
 export class RegisterComponent implements OnInit {
   form: FormGroup;
   isSubmitting$: Observable<boolean>;
-  backendErrors$: Observable<IBackendErrors | null>;
+  backendErrors$: Observable<string[] | null>;
 
   constructor(private fb: FormBuilder, private facade: FacadeService) {}
 
@@ -40,7 +39,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private initializeState(): void {
-    this.isSubmitting$ = this.facade.getIsSubmitting();
-    this.backendErrors$ = this.facade.getBackendErrors();
+    this.isSubmitting$ = this.facade.getIsSubmitting$();
+    this.backendErrors$ = this.facade.getBackendErrors$();
   }
 }
