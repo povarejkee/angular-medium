@@ -30,6 +30,14 @@ export class ApiService {
       .pipe(map(this.getUserFromAuthResponse));
   }
 
+  getCurrentUser(): Observable<ICurrentUser> {
+    const URL: string = `${environment.apiUrl}/user`;
+
+    return this.http
+      .get<IAuthResponse>(URL)
+      .pipe(map(this.getUserFromAuthResponse));
+  }
+
   private getUserFromAuthResponse(response: IAuthResponse): ICurrentUser {
     return response.user;
   }

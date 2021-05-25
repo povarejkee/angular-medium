@@ -40,6 +40,28 @@ export class FacadeService {
     });
   }
 
+  getCurrentUserByAPI(): void {
+    if (!this.localStorage.get('accessToken')) {
+      this.state.setIsLoading(true);
+
+      this.api.getCurrentUser().subscribe({
+        next: (result: ICurrentUser) => {
+          this.state.setIsLoading(false);
+          this.state.setIsLoggedIn(true);
+          this.state.setCurrentUser(result);
+        },
+
+        error: (errorResponse: HttpErrorResponse) => {
+          this.state.setIsLoading(false);
+          this.state.setIsLoggedIn(false);
+          this.state.setCurrentUser(null);
+
+          console.error(errorResponse.message);
+        },
+      });
+    }
+  }
+
   private authSuccessActions(result: ICurrentUser): void {
     this.state.setIsSubmitting(false);
     this.state.setCurrentUser(result);
@@ -60,7 +82,7 @@ export class FacadeService {
     this.state.setBackendErrors(transformedErrors);
   }
 
-  // STATE:
+  // STATE SIGNALS:
   getIsSubmitting$(): Observable<boolean> {
     return this.state.getIsSubmitting$();
   }

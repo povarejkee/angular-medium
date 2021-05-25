@@ -16,6 +16,10 @@ export class StateService {
     boolean | null
   >(null);
 
+  private isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+
   private backendErrors$: BehaviorSubject<string[] | null> =
     new BehaviorSubject<string[] | null>(null);
 
@@ -41,6 +45,14 @@ export class StateService {
 
   setIsLoggedIn(flag: boolean | null): void {
     this.isLoggedIn$.next(flag);
+  }
+
+  getIsLoading$(): Observable<boolean | null> {
+    return this.isLoggedIn$.asObservable();
+  }
+
+  setIsLoading(flag: boolean): void {
+    this.isLoading$.next(flag);
   }
 
   getBackendErrors$(): Observable<string[] | null> {
