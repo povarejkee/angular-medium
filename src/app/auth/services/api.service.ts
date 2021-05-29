@@ -11,7 +11,7 @@ import { ICurrentUser } from '../types/current-user.interface';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class ApiService {
+export class AuthApiService {
   constructor(private http: HttpClient) {}
 
   register(data: IRegisterRequest): Observable<ICurrentUser> {
@@ -23,7 +23,7 @@ export class ApiService {
   }
 
   login(data: ILoginRequest): Observable<ICurrentUser> {
-    const URL: string = `${environment.apiUrl}/users`;
+    const URL: string = `${environment.apiUrl}/users/login`;
 
     return this.http
       .post<IAuthResponse>(URL, data)

@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { StateService } from './services/state.service';
-import { ApiService } from './services/api.service';
-import { CoreService } from './services/core.service';
+import { AuthStateService } from './services/state.service';
+import { AuthApiService } from './services/api.service';
+import { AuthCoreService } from './services/core.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
 
 import { IRegisterRequest } from './types/register-request.interface';
@@ -13,11 +13,11 @@ import { ILoginRequest } from './types/login-request.interface';
 import { ICurrentUser } from './types/current-user.interface';
 
 @Injectable()
-export class FacadeService {
+export class AuthFacadeService {
   constructor(
-    private state: StateService,
-    private api: ApiService,
-    private core: CoreService,
+    private state: AuthStateService,
+    private api: AuthApiService,
+    private core: AuthCoreService,
     private localStorage: LocalStorageService,
     private router: Router
   ) {}
@@ -41,7 +41,9 @@ export class FacadeService {
   }
 
   getCurrentUserByAPI(): void {
-    if (!this.localStorage.get('accessToken')) {
+    const token: string = this.localStorage.get('accessToken');
+
+    if (token) {
       this.state.setIsLoading(true);
 
       this.api.getCurrentUser().subscribe({
@@ -52,13 +54,16 @@ export class FacadeService {
         },
 
         error: (errorResponse: HttpErrorResponse) => {
+          // todo возможно, придется создать функцию, чтобы не повторяться ТУТ и в else ниже
           this.state.setIsLoading(false);
           this.state.setIsLoggedIn(false);
           this.state.setCurrentUser(null);
-
-          console.error(errorResponse.message);
         },
       });
+    } else {
+      this.state.setIsLoading(false);
+      this.state.setIsLoggedIn(false);
+      this.state.setCurrentUser(null);
     }
   }
 

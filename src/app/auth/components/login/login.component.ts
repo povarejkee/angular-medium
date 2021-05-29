@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { FacadeService } from '../../facade.service';
+import { AuthFacadeService } from '../../facade.service';
 
 import { ILoginRequest } from '../../types/login-request.interface';
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   isSubmitting$: Observable<boolean>;
   backendErrors$: Observable<string[] | null>;
 
-  constructor(private fb: FormBuilder, private facade: FacadeService) {}
+  constructor(private fb: FormBuilder, private facade: AuthFacadeService) {}
 
   ngOnInit(): void {
     this.initializeForm();

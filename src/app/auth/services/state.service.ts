@@ -5,7 +5,7 @@ import { ICurrentUser } from '../types/current-user.interface';
 import { IBackendErrors } from '../types/backend-errors';
 
 @Injectable()
-export class StateService {
+export class AuthStateService {
   private isSubmitting$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 

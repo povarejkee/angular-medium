@@ -6,10 +6,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { BackendErrorsModule } from '../shared/modules/backend-errors/backend-errors.module';
 
-import { FacadeService } from './facade.service';
-import { ApiService } from './services/api.service';
-import { StateService } from './services/state.service';
-import { CoreService } from './services/core.service';
+import { AuthFacadeService } from './facade.service';
+import { AuthApiService } from './services/api.service';
+import { AuthStateService } from './services/state.service';
+import { AuthCoreService } from './services/core.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
 
 import { RegisterComponent } from './components/register/register.component';
@@ -30,10 +30,10 @@ const routes: Routes = [
     BackendErrorsModule,
   ],
   providers: [
-    FacadeService,
-    ApiService,
-    StateService,
-    CoreService,
+    AuthFacadeService,
+    AuthApiService,
+    AuthStateService,
+    AuthCoreService,
     LocalStorageService,
   ],
 })
