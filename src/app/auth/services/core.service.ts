@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { IBackendErrors } from '../types/backend-errors';
+import { IBackendErrors } from '../types/backend-errors.interface';
 
 @Injectable()
 export class AuthCoreService {

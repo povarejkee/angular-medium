@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { IBackendErrors } from '../../../../../auth/types/backend-errors';
+import { IBackendErrors } from '../../../../../auth/types/backend-errors.interface';
 
 @Component({
   selector: 'am-backend-errors',

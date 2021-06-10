@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ICurrentUser } from '../types/current-user.interface';
-import { IBackendErrors } from '../types/backend-errors';
+import { IBackendErrors } from '../types/backend-errors.interface';
 
 @Injectable()
 export class AuthStateService {
