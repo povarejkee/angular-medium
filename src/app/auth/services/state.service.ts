@@ -47,8 +47,8 @@ export class AuthStateService {
     this.isLoggedIn$.next(flag);
   }
 
-  getIsLoading$(): Observable<boolean | null> {
-    return this.isLoggedIn$.asObservable();
+  getIsLoading$(): Observable<boolean> {
+    return this.isLoading$.asObservable();
   }
 
   setIsLoading(flag: boolean): void {

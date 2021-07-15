@@ -1,1 +1,4 @@
-<p>feed works!</p>
+<!-- todo нормальный template с templateOutlet и тп -->
+
+<div *ngIf="isLoading$ | async">Loading...</div>
+<div *ngFor="let article of (feed$ | async)?.articles">test</div>
