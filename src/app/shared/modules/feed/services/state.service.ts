@@ -12,6 +12,8 @@ export class FeedStateService {
   private feed$: BehaviorSubject<IGetFeedResponse | null> =
     new BehaviorSubject<IGetFeedResponse | null>(null);
 
+  private error$: BehaviorSubject<any> = new BehaviorSubject<any>(null); // todo пока не ясно какой будет тип
+
   getIsLoading$(): Observable<boolean> {
     return this.isLoading$.asObservable();
   }
@@ -26,5 +28,13 @@ export class FeedStateService {
 
   setFeed(feed: IGetFeedResponse): void {
     this.feed$.next(feed);
+  }
+
+  getError$(): Observable<any> {
+    return this.error$.asObservable();
+  }
+
+  setError(error: any): void {
+    this.error$.next(error);
   }
 }

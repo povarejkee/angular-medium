@@ -18,7 +18,11 @@ export class FeedFacadeService {
         this.state.setIsLoading(false);
         this.state.setFeed(feed);
       },
-      // todo failure feed response
+      error: (error: any) => {
+        // todo пока не ясно какой будет тип
+        this.state.setIsLoading(false);
+        this.state.setError(error);
+      },
     });
   }
 
@@ -29,5 +33,10 @@ export class FeedFacadeService {
 
   getFeed$(): Observable<IGetFeedResponse | null> {
     return this.state.getFeed$();
+  }
+
+  getError$(): Observable<any> {
+    // todo пока не ясно какой будет тип
+    return this.state.getError$();
   }
 }
