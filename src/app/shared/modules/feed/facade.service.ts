@@ -5,6 +5,7 @@ import { FeedStateService } from './services/state.service';
 import { FeedApiService } from './services/api.service';
 
 import { IGetFeedResponse } from './types/get-feed-response.interface';
+import { finalize } from 'rxjs/operators';
 
 @Injectable()
 export class FeedFacadeService {
@@ -13,17 +14,18 @@ export class FeedFacadeService {
   getFeedByAPI(apiURL: string): void {
     this.state.setIsLoading(true);
 
-    this.api.getFeed(apiURL).subscribe({
-      next: (feed: IGetFeedResponse) => {
-        this.state.setIsLoading(false);
-        this.state.setFeed(feed);
-      },
-      error: (error: any) => {
-        // todo пока не ясно какой будет тип
-        this.state.setIsLoading(false);
-        this.state.setError(error);
-      },
-    });
+    this.api
+      .getFeed(apiURL)
+      .pipe(finalize(() => this.state.setIsLoading(false)))
+      .subscribe({
+        next: (feed: IGetFeedResponse) => {
+          this.state.setFeed(feed);
+        },
+        error: (error: any) => {
+          // todo пока не ясно какой будет тип
+          this.state.setError(error);
+        },
+      });
   }
 
   // STATE SIGNALS:

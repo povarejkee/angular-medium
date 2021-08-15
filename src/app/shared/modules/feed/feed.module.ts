@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { ErrorMessageModule } from '../errorMessage/errorMessage.module';
 import { LoadingModule } from '../loading/loading.module';
+import { PaginationModule } from '../pagination/pagination.module';
 
 import { FeedComponent } from './components/feed/feed.component';
 
@@ -20,6 +21,7 @@ import { FeedStateService } from './services/state.service';
     RouterModule,
     ErrorMessageModule,
     LoadingModule,
+    PaginationModule,
   ],
   exports: [FeedComponent],
   providers: [FeedFacadeService, FeedApiService, FeedStateService],

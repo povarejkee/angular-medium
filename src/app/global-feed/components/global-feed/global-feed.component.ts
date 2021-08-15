@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'am-global-feed',
@@ -6,10 +6,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./global-feed.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GlobalFeedComponent implements OnInit {
+export class GlobalFeedComponent {
   apiURL: string = '/articles';
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }
